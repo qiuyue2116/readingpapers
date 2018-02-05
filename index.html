@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>cvpaper.challenge</title>
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/white.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+  </head>
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+    
+  </script>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <div class="paper-abstract">
+            <div class="title">Generating the Future with Adversarial Transformers</div>
+            <div class="info">C. Vondrick et al., CVPR, 2017.</div>
+            <div class="item1">
+              <h1>概要</h1>
+              <div class="text">
+                未来の動画を予測して生成する手法を提案．
+                4フレーム x 64画素 x 64画素のクリップを入力として，その後の16フレームの動画を生成．
+                完全に新しいフレームを生成するのは難しいので，入力フレームの変換により未来のフレームを生成するのがポイント．
+                論文の主張としては，きれいな動画を作るにはLow-Levelな情報が重要だけど，未来予測のためにはHigh-Levelな理解も必要で，
+                その両者を一つのネットワークで一気に学習するのは難しいとしている．
+                だから，Low-Levelな情報は元のフレームを変換することで引っ張ってきて，ネットワークはHigh-Levelな特徴抽出に集中させるのが良いとのこと．
+                このネットワークの学習はGANベース．
+                生成動画の主観評価や可視化，Generatorの特徴を利用した物体認識タスクなどで性能を評価．
+                
+              </div>
+            </div>
+            <div class="item2"><img src="slides/figs/generating_future.png"></div>
+            <div class="item3">
+              <h1>新規性・結果</h1>
+              <div class="text">
+                <ul>
+                  <li>元のフレームからの変換により未来のフレームを生成する手法を提案</li>
+                  <li>未来の動画生成において，敵対的学習により大規模な教師なしデータを利用した学習を実現</li>
+                  <li>直接動画を生成したり，回帰誤差で学習したりする手法よりも良いことを主観評価実験で確認          </li>
+                </ul>
+              </div>
+            </div>
+            <div class="item4">
+              <h1>自由記述欄</h1>
+              <div class="text">
+                <ul>
+                  <li>入力が4フレームだけだけど，もっと増やすと性能は変わるのか気になる</li>
+                  <li>主観評価で本物と比較すると提案手法が一番嫌われている率が高いのもちょっと気になる</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- slide2-->
+        <section>
+          <div class="paper-abstract">
+            <div class="title">DensePose: Dense Human Pose Estimation In The Wild</div>
+            <div class="info">Rıza Alp Guler et al., a(href="https://arxiv.org/pdf/1802.00434.pdf" target="blank") https://arxiv.org/pdf/1802.00434.pdf</div>
+            <div class="item1">
+              <h1>概要</h1>
+              <div class="text">
+                身体の表面形状まで考慮したDenseな姿勢推定手法に関する研究。サーフェイスモデルを提供するSMPLタイプとアノテーションベースのMSCOCOタイプを提供。手法はMask RCNN（w/ ResNet-50, ROI-align, Regression）をベースに構築している。
+                
+              </div>
+            </div>
+            <div class="item2"><img src="slides/figs/180205densepose.png"></div>
+            <div class="item3">
+              <h1>新規性・結果</h1>
+              <div class="text">
+                <ul>
+                  <li>DenseReg [Guler,CVPR17]は顔表面の推定に対して、本研究では身体全体の表面やデンスなポイントを回帰。</li>
+                  <li>SMPLやDense-COCOのデータセットを構築</li>
+                  <li>非拘束（in the wild）の環境にてDensePoseを学習。     </li>
+                </ul>
+              </div>
+            </div>
+            <div class="item4">
+              <h1>自由記述欄</h1>
+              <div class="text">
+                <ul>
+                  <li>リアルが完全に崩壊した。（Face2Faceの全身モデル版が実現可能になった？）</li>
+                  <li>CG/UIの分野との親和性がより高くなった</li>
+                  <li>a(href="https://twitter.com/hirokatukataoka" target="blank") Hirokatsu Kataoka </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+        history: true,
+        center: false,
+        width: '100%',
+        height: '100%',
+        transition: 'none',
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+    </script>
+  </body>
+</html>
